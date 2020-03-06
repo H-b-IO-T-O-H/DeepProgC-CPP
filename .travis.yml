@@ -23,13 +23,16 @@ addons:
       - cppcheck
 
 script:
-  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
-  - export CC=/usr/bin/gcc-6
+#  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
+#  - export CC=/usr/bin/gcc-6
   - mkdir build
   - cd build
-  - cmake -DENABLE_COVERAGE=ON -DCMAKE_CXX_COMPILER="gcc-6" ../.
+  - cmake -DCMAKE_CXX_COMPILER="gcc-6" ../.
   - make
- # - valgrind --tool=memcheck --leak-check=full ./techno_dz1
- # - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../Project/include/ ../Project/srcs/
-  - gcov ../Project/srcs/*.c
-  - bash <(curl -s https://codecov.io/bash)
+  - valgrind --tool=memcheck --leak-check=full ./techno_dz1
+  - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../Project/include/ ../Project/srcs/
+ after_success:
+  - echo "success"
+ 
+after_failure:
+  - echo "failure"
