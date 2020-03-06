@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.com/H-b-IO-T-O-H/in-depth_programming.svg?branch=master
-    :target: https://travis-ci.com/H-b-IO-T-O-H/in-depth_programming
+.. image:: https://travis-ci.com/H-b-IO-T-O-H/Technopark.svg?branch=C%2FC%2B%2B_inDepthProg_1
+    :target: https://travis-ci.com/H-b-IO-T-O-H/Technopark
 
 Создать структуру для хранения информации о небоскребах мира: количестве этажей, общей высоте, высоте шпиля и назначении здания, 
 а также регионе расположения. Составить с ее использованием программу вывода информации обо всех зданиях с группировкой сначала 
