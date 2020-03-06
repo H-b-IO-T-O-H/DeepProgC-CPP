@@ -5,7 +5,7 @@ language: c
 
 branches:
   only:
-    - C/C++_HW_1
+    - C/C++_inDepthProg_1
 
 os: linux
 
