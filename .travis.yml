@@ -35,6 +35,6 @@ script:
   - make
   - valgrind --tool=memcheck --leak-check=full ./techno_dz1
   - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../Project/include/ ../Project/srcs/
-  - ./techno_dz1
+  - gcov ../Project/srcs/
   - cd ..
   - bash <(curl -s https://codecov.io/bash)
