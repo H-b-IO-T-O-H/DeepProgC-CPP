@@ -37,9 +37,8 @@ script:
   #- cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../Project/include/ ../Project/srcs/
  # - cd ../Project/srcs/
  # - bash <(curl -s https://codecov.io/bash)
-  - clang -coverage -O0 hello.c -o hello
-  - ./hello
-  - gcov hello.c
+  - clang -coverage -O0 Project/srcs/ -o test_cov
+  - gcov Project/srcs/*
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
