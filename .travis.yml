@@ -12,28 +12,34 @@ os: linux
 compiler:
   - gcc
 
-env:
-  global:
-    - CODECOV_TOKEN="7343d730-209f-4f60-9523-0f329a043b05"
+#env:
+#  global:
+#   - CODECOV_TOKEN="7343d730-209f-4f60-9523-0f329a043b05"
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - cmake
-      - gcc-6
-      - valgrind
-      - cppcheck
+#addons:
+#  apt:
+ #   sources:
+#      - ubuntu-toolchain-r-test
+#    packages:
+#      - cmake
+#      - gcc-6
+#      - valgrind
+#      - cppcheck
 
 script:
-  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
-  - export CC=/usr/bin/gcc-6
-  - mkdir build
-  - cd build
-  - cmake -DENABLE_COVERAGE=ON -DCMAKE_CXX_COMPILER="gcc-6" ../.
-  - make
-  - valgrind --tool=memcheck --leak-check=full ./techno_dz1
-  - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../Project/include/ ../Project/srcs/
-  - cd ../Project/srcs/
+ # - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
+ # - export CC=/usr/bin/gcc-6
+ # - mkdir build
+ # - cd build
+ # - cmake -DENABLE_COVERAGE=ON -DCMAKE_CXX_COMPILER="gcc-6" ../.
+#  - make
+ # - valgrind --tool=memcheck --leak-check=full ./techno_dz1
+  #- cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../Project/include/ ../Project/srcs/
+ # - cd ../Project/srcs/
+ # - bash <(curl -s https://codecov.io/bash)
+  - clang -coverage -O0 hello.c -o hello
+  - ./hello
+  - gcov hello.c
+
+after_success:
   - bash <(curl -s https://codecov.io/bash)
