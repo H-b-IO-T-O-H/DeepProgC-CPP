@@ -78,7 +78,6 @@ void print_struct_and_free(t_building *build)
 		printf("______________Building № %d______________\n", i + 1);
 		printf("Tot_height = %d, spire = %d, floors = %d\n", build->height->tot_height, build->height->spire_height, build->height->floors_nmb);
 		convert_purp_loc( build->height->purpose, build->height->location);
-		printf("purp = %c locat = %c\n",build->height->purpose, build->height->location);
 		temp = build->height->next;
 		free(build->height);
 		build->height = temp;
