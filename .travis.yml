@@ -12,6 +12,10 @@ os: linux
 compiler:
   - gcc
 
+env:
+  global:
+    - CODECOV_TOKEN="7343d730-209f-4f60-9523-0f329a043b05"
+
 addons:
   apt:
     sources:
@@ -32,3 +36,6 @@ script:
   - valgrind --tool=memcheck --leak-check=full ./techno_dz1
   - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../Project/include/ ../Project/srcs/
   - ./techno_dz1
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
