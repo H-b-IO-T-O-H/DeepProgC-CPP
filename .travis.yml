@@ -31,7 +31,7 @@ script:
   - export CC=/usr/bin/gcc-6
   - mkdir build
   - cd build
-  - cmake ../.
+  - cmake -DENABLE_COVERAGE=ON -DCMAKE_CXX_COMPILER="gcc-6" ../.
   - make
   - valgrind --tool=memcheck --leak-check=full ./techno_dz1
   - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../Project/include/ ../Project/srcs/
