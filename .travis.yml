@@ -29,6 +29,6 @@ script:
   - cd build
   - cmake ../.
   - make
-  - valgrind --tool=memcheck --leak-check=full ./techno_park_dz1
+  - valgrind --tool=memcheck --leak-check=full ./techno_dz1
   - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../Project/include/ ../Project/srcs/
-  - ./techno_park_dz1
+  - ./techno_dz1
