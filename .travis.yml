@@ -1,0 +1,31 @@
+dist: trusty
+sudo: required
+
+language: c
+
+branches:
+  only:
+    - C/C++_inDepthProg_1
+
+os: linux
+
+compiler:
+  - gcc
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - cmake
+      - gcc-6
+      - valgrind
+      - cppcheck
+
+script:
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_CXX_COMPILER="gcc-6" ../.
+  - make
+  - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../Project/include/ ../Project/srcs/
+  - valgrind --tool=memcheck --leak-check=full ./techno_dz1
