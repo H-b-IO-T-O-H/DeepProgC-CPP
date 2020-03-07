@@ -10,18 +10,18 @@
 #define FLOORS 3
 
 typedef struct		s_height{
-	short			floors_nmb;
-	short			tot_height;
-	short			spire_height;
-	char			purpose;
-	char 			location;
-	struct s_height *next;
-}					t_height;
+	short		floors_nmb;
+	short		tot_height;
+	short		spire_height;
+	char		purpose;
+	char 		location;
+	struct s_height	*next;
+}			t_height;
 
 typedef struct		s_building {
 	t_height 	*height;
-	int			count;
-}					t_building;
+	int		count;
+}			t_building;
 
 t_building*	create_build_list(t_unit_test *tes);
 char		purpose_variants(int *test_flag);
