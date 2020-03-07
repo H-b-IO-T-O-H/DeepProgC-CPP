@@ -1,0 +1,32 @@
+dist: trusty
+sudo: required
+
+language: c
+
+branches:
+  only:
+    - C/C++_inDepProg_1
+
+os: linux
+
+compiler:
+  - gcc
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - cmake
+      - gcc-6
+      - valgrind
+      - cppcheck
+
+script:
+  - mkdir build
+  - cd build
+  - cmake ../.
+  - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../Project/include/ ../Project/srcs/
+  - cd app_for_test
+  - make
+  - valgrind --tool=memcheck --leak-check=full ./test_app
