@@ -1,6 +1,8 @@
-cmake_minimum_required(VERSION 3.9.2)
-project(techno_dz1 C)
+cmake_minimum_required(VERSION 3.9)
+project(dz1_techno_c)
 
-set(CMAKE_C_STANDARD 99)
+add_subdirectory(console_app)
+add_subdirectory(app_for_test)
 
-add_executable(techno_dz1 Project/srcs/main.c Project/srcs/get_build_info.c Project/include/buildings.h Project/srcs/purpose.c Project/srcs/location.c Project/srcs/print_struct.c Project/tests/unit_test.c)
+add_custom_target(dz1_techno_c)
+add_dependencies(dz1_techno_c test_app console)

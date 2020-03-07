@@ -533,8 +533,7 @@ t_height ans_e_6 = {
 		.tot_height = 1,
 };
 
-int cmp_not_create(t_height *height, t_height ans)
-{
+int cmp_not_create(t_height *height, t_height ans) {
 	if (height->purpose == ans.purpose && height->location == ans.location &&
 		height->tot_height == ans.tot_height && height->floors_nmb == ans.floors_nmb
 		&& height->spire_height == ans.spire_height) {
@@ -552,7 +551,8 @@ int cmp_structs(t_unit_test *test, t_height ans) {
 		return (-1);
 	height = build->height;
 	if (cmp_not_create(height, ans) == 0) {
-		print_struct_and_free(build);
+		print_struct(build);
+		free_struct(build);
 		return (0);
 	}
 	return (1);
@@ -580,14 +580,14 @@ int cmp_sort_lists() {
 	if (!build)
 		return (-1);
 	temp = build->height;
-	while(++i < 9)
-	{
+	while (++i < 9) {
 		if (cmp_not_create(build->height, array_of_tests[i]))
 			return (1);
 		build->height = build->height->next;
 	}
 	build->height = temp;
-	print_struct_and_free(build);
+	print_struct(build);
+	free_struct(build);
 	return (0);
 }
 

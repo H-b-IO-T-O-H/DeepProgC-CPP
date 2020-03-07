@@ -64,7 +64,7 @@ void convert_purp_loc(char purp, char loc)
 		printf("South-East\n");
 }
 
-void print_struct_and_free(t_building *build)
+void print_struct(const t_building *build)
 {
 	int i = 0;
 	t_height *temp = NULL;
@@ -73,15 +73,28 @@ void print_struct_and_free(t_building *build)
 		printf("No buildings!\n");
 		return ;
 	}
-	while(build->height)
+	temp = build->height;
+	while(temp)
 	{
 		printf("______________Building № %d______________\n", i + 1);
-		printf("Tot_height = %d, spire = %d, floors = %d\n", build->height->tot_height, build->height->spire_height, build->height->floors_nmb);
-		convert_purp_loc( build->height->purpose, build->height->location);
+		printf("Tot_height = %d, spire = %d, floors = %d\n",temp->tot_height, temp->spire_height, temp->floors_nmb);
+		convert_purp_loc( temp->purpose, temp->location);
+		temp = temp->next;
+		++i;
+	}
+}
+
+void free_struct(t_building *build)
+{
+	t_height *temp = NULL;
+	
+	if (!build)
+		return ;
+	while(build->height)
+	{
 		temp = build->height->next;
 		free(build->height);
 		build->height = temp;
-		++i;
 	}
 	free(build);
 }
