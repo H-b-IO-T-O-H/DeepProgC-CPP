@@ -1,0 +1,32 @@
+dist: trusty
+sudo: required
+
+language: c
+
+branches:
+  only:
+    - C/C++_inDepProg_2
+
+os: linux
+
+compiler:
+  - gcc
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - cmake
+      - gcc-6
+      - valgrind
+      - cppcheck
+
+script:
+  - mkdir build
+  - cd build
+  - cmake ../.
+  - make
+  - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../includes/ ../For_static_library/
+  - cd single_tread_app
+  - valgrind --tool=memcheck --leak-check=full ./single_tread 1 1 1
