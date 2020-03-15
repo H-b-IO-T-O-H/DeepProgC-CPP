@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/multi_thread.dir/__/For_static_library/main.c.o  -o multi_thread  ../single_thread_app/liblib_static.a 

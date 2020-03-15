@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/vlad/CLionProjects/Deep_Prog/new/For_static_library/main.c
+../includes/lists.h
+/home/vlad/CLionProjects/Deep_Prog/new/includes/lists.h
+
+/home/vlad/CLionProjects/Deep_Prog/new/includes/lists.h
+stdio.h
+-
+stdlib.h
+-
+pthread.h
+-
+time.h
+-
+sys/sysinfo.h
+-
+

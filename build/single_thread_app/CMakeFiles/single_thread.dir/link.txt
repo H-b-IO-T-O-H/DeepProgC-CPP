@@ -1,0 +1,1 @@
+/usr/bin/cc    CMakeFiles/single_thread.dir/__/For_static_library/main.c.o  -o single_thread  liblib_static.a 
