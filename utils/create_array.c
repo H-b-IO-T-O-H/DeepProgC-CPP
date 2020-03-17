@@ -19,7 +19,7 @@ int *ft_fill_array(int size, int fill_flag)
 	arr = ft_create_array(size);
 	if (!arr)
 		return NULL;
-	if (fill_flag == 0) {
+	if (fill_flag == 1) {
 		for (int i = 0; i < size; ++i)
 			arr[i] = i;
 	}

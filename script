@@ -1,0 +1,9 @@
+#!/bin/bash
+if [ -d build ]; then
+		echo "Error! Directory already exist!"
+	else
+		mkdir build
+		cd build
+		cmake ./..
+		make
+	fi
