@@ -25,8 +25,10 @@ addons:
 script:
   - mkdir build
   - cd build
-  - cmake ../.
+  - cmake ./..
   - make
   - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../includes/ ../For_static_library/
-  - cd single_thread_app
-  - valgrind --tool=memcheck --leak-check=full ./single_thread 1 1 1
+  - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../includes/ ../For_dynamic_library/
+  - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../includes/ ../utils/
+  - valgrind --tool=memcheck --leak-check=full ./For_dynamic_library/multi_thread_app/multi_thread 1 1 1
+  - valgrind --tool=memcheck --leak-check=full ./For_static_library/single_thread_app/single_thread 1 1 1
