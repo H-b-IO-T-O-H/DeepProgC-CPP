@@ -14,7 +14,7 @@ int request_data(int argc, char **argv, int *size, int *flag_fill)
 	}
 	size_A = atoi(argv[1]);
 	size_B = atoi(argv[2]);
-	if (size_A > MAX_SIZE || size_B > MAX_SIZE) {
+	if (size_A > MAX_SIZE || size_B > MAX_SIZE || size_A <= 0 || size_B <= 0) {
 		printf("Error! Size limit exceeded!\n");
 		return 1;
 	}

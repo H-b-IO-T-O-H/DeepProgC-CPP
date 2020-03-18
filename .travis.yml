@@ -1,7 +1,9 @@
 dist: trusty
 sudo: required
 
-language: c
+language:
+  - c
+  - c++
 
 branches:
   only:
@@ -18,17 +20,27 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - cmake
-      - gcc-6
+      - gcc
       - valgrind
       - cppcheck
+
+install:
+  - sudo apt install libgtest-dev
+  - cd /usr/src/gtest
+  - dir
+  - sudo cmake CMakeLists.txt
+  - sudo make
+  - sudo mv libgtest* /usr/lib/
+  - cd "${TRAVIS_BUILD_DIR}"
 
 script:
   - mkdir build
   - cd build
   - cmake ./..
   - make
+  - ./gtest_test
   - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../includes/ ../For_static_library/
   - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../includes/ ../For_dynamic_library/
   - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../includes/ ../utils/
-  - valgrind --tool=memcheck --leak-check=full ./For_dynamic_library/multi_thread_app/multi_thread 1 1 1
-  - valgrind --tool=memcheck --leak-check=full ./For_static_library/single_thread_app/single_thread 1 1 1
+  - valgrind --tool=memcheck --leak-check=full multi_thread 1 1 1
+  - valgrind --tool=memcheck --leak-check=full single_thread 1 1 1

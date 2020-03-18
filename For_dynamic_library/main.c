@@ -2,9 +2,9 @@
 #include "../includes/arrays.h"
 
 t_data data = {PTHREAD_MUTEX_INITIALIZER,
-				 NULL, NULL,
-				 NULL, 0,
-				 0, 0 };
+				 NULL, NULL,NULL,
+				 0,0, 0 , 0,
+				 0};
 
 int main(int argc, char **argv) {
 	
@@ -13,7 +13,8 @@ int main(int argc, char **argv) {
 	int	fill_flag = 0;
 	int res = 0;
 	int size = 0;
-
+	
+	data.info.test_mode = 0;
 	if (request_data(argc, argv, &size, &fill_flag))
 		return 0;
 	array_A = ft_create_array(size);

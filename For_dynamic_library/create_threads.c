@@ -8,8 +8,8 @@ int create_range_for_each_thread(int **distr_array)
 	int step = data.info.size / opt_trds_cnt;// разбиваем весь диапазон на поддиапазоны
 	int *distribution_array;
 	
-	if (data.info.size < 10000)
-		opt_trds_cnt = 2;
+	/*if (data.info.size < 10000)
+		opt_trds_cnt = 2;*/
 	distribution_array = (int *)malloc(sizeof(int) * opt_trds_cnt);
 	if (!distribution_array)
 	{
@@ -21,7 +21,7 @@ int create_range_for_each_thread(int **distr_array)
 	int j = distribution_array[1];
 	if (opt_trds_cnt <= 1)
 		printf("Multi thread app will not get advantage on your system!\n");
-	if (data.info.size < 10000)
+	if (data.info.size < 1000 && !data.info.test_mode)
 		printf("Multi thread app will be not so efficient. Array size too little!\n Single thread app recommended...\n");
 	for (int i = 2; i < opt_trds_cnt; i++)
 	{
@@ -45,5 +45,7 @@ int create_threads_and_cmp(int *array_A, int *array_B, int size, int fill_flag)
 		return (-1);
 	pthread_t trds[opt_trds_cnt]; //благодаря указанию участков нет нужды в использовании мьютексы, т.к. все потоки работают в своем адресном пространстве
 	fill_arrays_via_treads(trds, opt_trds_cnt);
+	if (data.info.test_mode != 0) //нужно для проверки функциональности приложения в режиме тестирования
+		array_A[data.info.test_mode] = -1;
 	return compare_arrays_via_threads(array_A, array_B, trds, opt_trds_cnt);
 }

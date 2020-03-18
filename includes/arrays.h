@@ -17,6 +17,7 @@ typedef struct	s_info {
 	int exit_flag;
 	int size;
 	int pos;
+	int test_mode;
 }				t_info;
 
 typedef struct	s_data {
