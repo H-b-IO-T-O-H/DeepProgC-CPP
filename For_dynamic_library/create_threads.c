@@ -8,8 +8,6 @@ int create_range_for_each_thread(int **distr_array)
 	int step = data.info.size / opt_trds_cnt;// разбиваем весь диапазон на поддиапазоны
 	int *distribution_array;
 	
-	/*if (data.info.size < 10000)
-		opt_trds_cnt = 2;*/
 	distribution_array = (int *)malloc(sizeof(int) * opt_trds_cnt);
 	if (!distribution_array)
 	{
