@@ -4,8 +4,8 @@ extern "C" {
 #include "../includes/arrays.h"
 }
 t_data data = {PTHREAD_MUTEX_INITIALIZER,
-			   nullptr, nullptr,
-			   nullptr, 0,
+			   NULL, NULL,
+			   NULL, 0,
 			   0, 0 , 0, 1};
 
 #define UNIT_TESTS_SIZE 1000
@@ -28,7 +28,7 @@ void check_static(int mult_factor)
 		array_A = ft_fill_array(sizes_for_tests[i], 1);//создаем изначально правильные массивы
 		array_B = ft_fill_array(sizes_for_tests[i], -1);
 		ASSERT_EQ( compare_arrays(array_A, array_B, sizes_for_tests[i]), 1);
-		free_all(array_A, array_B, nullptr, nullptr);
+		free_all(array_A, array_B, NULL, NULL);
 	}
 	for (int i = 1; i < size; ++i)
 	{
@@ -36,7 +36,7 @@ void check_static(int mult_factor)
 		array_B = ft_fill_array(sizes_for_tests[i], -1);//но меняем один из элементов на любое число, функция сравнения должна вернуть 0 во всех случаях
 		array_B[i] = -1;
 		ASSERT_EQ( compare_arrays(array_A, array_B, sizes_for_tests[i]), 0);
-		free_all(array_A, array_B, nullptr, nullptr);
+		free_all(array_A, array_B, NULL, NULL);
 	}
 }
 
@@ -55,7 +55,7 @@ void check_dynamic(int mult_factor)
 		array_A = ft_create_array(sizes_for_tests[i]);
 		array_B = ft_create_array(sizes_for_tests[i]);
 		ASSERT_EQ( create_threads_and_cmp(array_A, array_B, sizes_for_tests[i], 1), 0);
-		free_all(array_A,array_B, data.info.distribution, nullptr);
+		free_all(array_A,array_B, data.info.distribution, NULL);
 	}
 	for (int i = 1; i < size; ++i)
 	{
@@ -63,7 +63,7 @@ void check_dynamic(int mult_factor)
 		array_B = ft_create_array(sizes_for_tests[i]);
 		data.info.test_mode = i;// меняем один из элементов  второго заведомо верного массивана любое число, функция сравнения должна вернуть 0 во всех случаях
 		ASSERT_EQ( create_threads_and_cmp(array_A, array_B, sizes_for_tests[i], -1), 0);
-		free_all(array_A,array_B, data.info.distribution, nullptr);
+		free_all(array_A,array_B, data.info.distribution, NULL);
 	}
 }
 
@@ -85,5 +85,5 @@ TEST(STATIC, stress_tests) {
 TEST(DYNAMIC, stress_tests) {
 	
 	check_dynamic(STRESS_TEST_MULT);
-	free_all(nullptr, nullptr, nullptr, &data.mutex);
+	free_all(NULL, NULL, NULL, &data.mutex);
 }
