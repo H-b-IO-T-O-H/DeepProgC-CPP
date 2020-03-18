@@ -12,14 +12,14 @@ int create_range_for_each_thread(int **distr_array)
 	if (!distribution_array)
 	{
 		printf("Error! Can't allocate region for distribution array.\n");
-		return (-1);
+		return ERROR_IN_MEM_ALLOC;
 	}
 	distribution_array[0] = step;//в нулевом элементе содержится шаг, чтобы функция распределения могла выделить нужный диапазон под каждый поток
 	distribution_array[1] = step + (data.info.size - step * opt_trds_cnt); //первый поток получает чуть больше работы из-за округления индексов при делении.
 	int j = distribution_array[1];
 	if (opt_trds_cnt <= 1)
 		printf("Multi thread app will not get advantage on your system!\n");
-	if (data.info.size < 1000 && !data.info.test_mode)
+	if (data.info.size < REQUIRED_SIZE && !data.info.test_mode)
 		printf("Multi thread app will be not so efficient. Array size too little!\n Single thread app recommended...\n");
 	for (int i = 2; i < opt_trds_cnt; i++)
 	{
@@ -38,9 +38,8 @@ int create_threads_and_cmp(int *array_A, int *array_B, int size, int fill_flag)
 	data.info.fill_flag = fill_flag;
 	data.info.arr_A = array_A;
 	data.info.arr_B = array_B;
-	opt_trds_cnt = create_range_for_each_thread(&data.info.distribution);//создали распределенные участки для каждого потока, которые указаны в виде индексов в массиве distribution
-	if (opt_trds_cnt == -1)
-		return (-1);
+	if ((opt_trds_cnt = create_range_for_each_thread(&data.info.distribution)) == ERROR_IN_MEM_ALLOC)//создали распределенные участки для каждого потока, которые указаны в виде индексов в массиве distribution
+		return ERROR_IN_MEM_ALLOC;
 	pthread_t trds[opt_trds_cnt]; //благодаря указанию участков нет нужды в использовании мьютексы, т.к. все потоки работают в своем адресном пространстве
 	fill_arrays_via_treads(trds, opt_trds_cnt);
 	if (data.info.test_mode != 0) //нужно для проверки функциональности приложения в режиме тестирования

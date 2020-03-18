@@ -14,11 +14,11 @@ int main(int argc, char **argv) {
 	
 	if (request_data(argc, argv, &size, &flag_fill)) //пользователь ввел неверные данные для заполнения
 		return 0;
-	array_A = ft_fill_array(size, 1);
+	array_A = ft_fill_array(size, EQUAL);
 	array_B = ft_fill_array(size, flag_fill);
 	if (!array_A || !array_B) //не выделилась память под массивы
 		return 0;
-	if (compare_arrays(array_A, array_B, size) == 1)
+	if (compare_arrays(array_A, array_B, size) == EQUAL)
 		printf("\033[032mArrays are equal.\033[039m\n");
 	else
 		printf("\033[031mArrays are not equal.\033[039m\n");

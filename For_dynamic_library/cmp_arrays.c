@@ -4,7 +4,7 @@ extern t_data data;
 
 int compare_arrays_via_threads(const int *array_A, const int *array_B, pthread_t *trds, int opt_trds_cnt)
 {
-	data.info.exit_flag = 1;
+	data.info.exit_flag = EQUAL;
 	for (int i = 0 ; i < opt_trds_cnt; ++i)
 	{
 		pthread_mutex_lock(&data.mutex);

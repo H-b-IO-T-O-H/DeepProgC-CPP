@@ -10,17 +10,17 @@ int request_data(int argc, char **argv, int *size, int *flag_fill)
 		 "fill flag. Max size of each array: ~ 100 000 000\n");
 		printf("fill flag =  1 - array_A = [0; size_A], array_B = [0; size_B]\n");
 		printf("fill flag = -1 - array_A = [0; size_A], array_B = [size_B; 0] - array B reversed\n");
-		return 1;
+		return USER_ERROR;
 	}
 	size_A = atoi(argv[1]);
 	size_B = atoi(argv[2]);
 	if (size_A > MAX_SIZE || size_B > MAX_SIZE || size_A <= 0 || size_B <= 0) {
 		printf("Error! Size limit exceeded!\n");
-		return 1;
+		return USER_ERROR;
 	}
 	if (size_A != size_B) {
 		printf("Arrays have different sizes!\n");
-		return 1;
+		return USER_ERROR;
 	}
 	*size = size_A;
 	return 0;

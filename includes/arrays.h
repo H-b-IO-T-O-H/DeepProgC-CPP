@@ -7,6 +7,12 @@
 #include <sys/sysinfo.h>
 
 #define MAX_SIZE 300000000
+#define EQUAL 1
+#define USER_MODE 0
+#define NOT_EQUAL 0
+#define USER_ERROR 1
+#define ERROR_IN_MEM_ALLOC -1
+#define REQUIRED_SIZE 10000
 
 typedef struct	s_info {
 	int *arr_A;
