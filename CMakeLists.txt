@@ -37,5 +37,5 @@ add_executable(multi_thread For_dynamic_library/main.c)
 add_executable(gtest_test ${SRC_FILES_TESTS})
 
 target_link_libraries(single_thread static)
-target_link_libraries(multi_thread dynamic Threads)
+target_link_libraries(multi_thread dynamic Threads::Threads)
 target_link_libraries(gtest_test gtest dynamic pthread static)
