@@ -9,6 +9,7 @@ SET(SRC_FILES_STATIC
         utils/request_user_data.c
         For_static_library/compare_arrays.c
         )
+
 SET(SRC_FILES_DYNAMIC
         utils/free_func.c
         utils/print_array.c
@@ -19,19 +20,22 @@ SET(SRC_FILES_DYNAMIC
         For_dynamic_library/create_threads.c
         For_dynamic_library/multi_thread_funcs.c)
 
-include_directories(includes/arrays.h)
+SET(SRC_FILES_TESTS
+        tests/main.cpp
+        tests/Test.cpp)
+
+find_package(Threads REQUIRED)
+find_package(GTest REQUIRED)
+
+include_directories(includes)
+
 add_library(static STATIC ${SRC_FILES_STATIC})
 add_library(dynamic SHARED ${SRC_FILES_DYNAMIC})
 
 add_executable(single_thread For_static_library/main.c)
 add_executable(multi_thread For_dynamic_library/main.c)
+add_executable(gtest_test ${SRC_FILES_TESTS})
+
 target_link_libraries(single_thread static)
-target_link_libraries(multi_thread dynamic)
-
-include_directories(${GTEST_INCLUDE_DIRS})
-add_executable(gtest_test tests/main.cpp tests/Test.cpp)
-TARGET_LINK_LIBRARIES(gtest_test ${GTEST_BOTH_LIBRARIES} gtest dynamic pthread static)
-
-find_package(Threads REQUIRED)
-find_package(GTest REQUIRED)
-target_link_libraries(multi_thread Threads::Threads)
+target_link_libraries(multi_thread dynamic Threads)
+target_link_libraries(gtest_test gtest dynamic pthread static)
