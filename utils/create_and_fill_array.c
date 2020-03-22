@@ -1,6 +1,6 @@
 #include "../includes/arrays.h"
 
-int		*ft_create_array(int size)
+int  *ft_create_array(int size)
 {
 	int *arr;
 	
@@ -12,7 +12,7 @@ int		*ft_create_array(int size)
 	return (arr);
 }
 
-void	ft_fill_array(int *arr, int size, int fill_flag)
+void ft_fill_array(int *arr, int size, int fill_flag)
 {
 	if (!arr)
 		return ;
