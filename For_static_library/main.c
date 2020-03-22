@@ -7,21 +7,21 @@
 
 int main(int argc, char **argv) {
 	
-	int	*array_A = NULL;
-	int	*array_B = NULL;
-	int	flag_fill = 0;
+	t_data *arrays_info;
+	t_data test;
+	int	fill_flag = 0;
 	int size = 0;
 	
-	if (request_data(argc, argv, &size, &flag_fill)) //пользователь ввел неверные данные для заполнения
+	if (request_data(argc, argv, &size, &fill_flag)) //пользователь ввел неверные данные для заполнения
 		return 0;
-	array_A = ft_fill_array(size, EQUAL);
-	array_B = ft_fill_array(size, flag_fill);
-	if (!array_A || !array_B) //не выделилась память под массивы
+	if (create_all_data_about_arrays(&arrays_info,  USER_MODE,  SINGLE_TREAD, size, fill_flag) == ERROR_IN_MEM_ALLOC)
 		return 0;
-	if (compare_arrays(array_A, array_B, size) == EQUAL)
+	ft_fill_array(arrays_info->info.arr_A, size, EQUAL);
+	ft_fill_array(arrays_info->info.arr_B, size, fill_flag);
+	if (compare_arrays(arrays_info) == EQUAL)
 		printf("\033[032mArrays are equal.\033[039m\n");
 	else
 		printf("\033[031mArrays are not equal.\033[039m\n");
-	free_all(array_A, array_B, NULL, NULL);
+	free_all(&arrays_info, SINGLE_TREAD);
 	return 0;
 }

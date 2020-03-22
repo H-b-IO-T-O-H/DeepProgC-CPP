@@ -3,69 +3,63 @@
 extern "C" {
 #include "../includes/arrays.h"
 }
-t_data data = {PTHREAD_MUTEX_INITIALIZER,
-			   NULL, NULL,
-			   NULL, 0,
-			   0, 0 , 0, 1};
 
 #define UNIT_TESTS_SIZE 1000
 #define UNIT_TEST_MULT 100
 #define STRESS_TEST_SIZE 10
 #define STRESS_TEST_MULT 30000000
-#define FILL_REVERSE -1
-#define FILL_EQUALLY 1
 
 void check_static(int mult_factor)
 {
-	int *array_A;
-	int *array_B;
-	int size;
-	mult_factor == UNIT_TEST_MULT ? size = UNIT_TESTS_SIZE : (size = STRESS_TEST_SIZE);
+	t_data *arrays_info;
+	int size = (mult_factor == UNIT_TEST_MULT)? UNIT_TESTS_SIZE :
+												STRESS_TEST_SIZE;
 	int sizes_for_tests[size];
 	
 	for (int i = 1; i < size; ++i)
 		sizes_for_tests[i] = i * mult_factor;
 	for (int i = 1; i < size; ++i)
 	{
-		array_A = ft_fill_array(sizes_for_tests[i], 1);//создаем изначально правильные массивы
-		array_B = ft_fill_array(sizes_for_tests[i], -1);
-		ASSERT_EQ( compare_arrays(array_A, array_B, sizes_for_tests[i]), EQUAL);
-		free_all(array_A, array_B, NULL, NULL);
+		create_all_data_about_arrays(&arrays_info,  TEST_MODE,  SINGLE_TREAD, sizes_for_tests[i], NOT_EQUAL);
+		ft_fill_array(arrays_info->info.arr_A, sizes_for_tests[i], EQUAL);//создаем изначально правильные массивы
+		ft_fill_array(arrays_info->info.arr_B, sizes_for_tests[i], -EQUAL);
+		ASSERT_EQ( compare_arrays(arrays_info), EQUAL);
+		free_all(&arrays_info, SINGLE_TREAD);
 	}
 	for (int i = 1; i < size; ++i)
 	{
-		array_A = ft_fill_array(sizes_for_tests[i], 1);//создаем изначально правильные массивы
-		array_B = ft_fill_array(sizes_for_tests[i], -1);//но меняем один из элементов на любое число, функция сравнения должна вернуть 0 во всех случаях
-		array_B[i] = -1;
-		ASSERT_EQ( compare_arrays(array_A, array_B, sizes_for_tests[i]), NOT_EQUAL);
-		free_all(array_A, array_B, NULL, NULL);
+		create_all_data_about_arrays(&arrays_info,  TEST_MODE,  SINGLE_TREAD, sizes_for_tests[i], NOT_EQUAL);
+		ft_fill_array(arrays_info->info.arr_A, sizes_for_tests[i], EQUAL);//создаем изначально правильные массивы
+		ft_fill_array(arrays_info->info.arr_B, sizes_for_tests[i], -EQUAL);//но меняем один из элементов на любое число, функция сравнения должна вернуть 0 во всех случаях
+		arrays_info->info.arr_B[i] = -666;//но меняем один из элементов на любое число, функция сравнения должна вернуть 0 во всех случаях
+		ASSERT_EQ( compare_arrays(arrays_info), NOT_EQUAL);
+		free_all(&arrays_info, SINGLE_TREAD);
 	}
 }
 
 void check_dynamic(int mult_factor)
 {
-	int	*array_A;
-	int	*array_B;
-	int size;
-	mult_factor == UNIT_TEST_MULT ? size = UNIT_TESTS_SIZE : (size = STRESS_TEST_SIZE);
+	t_data *arrays_info;
+	int size = (mult_factor == UNIT_TEST_MULT)? UNIT_TESTS_SIZE :
+			   									STRESS_TEST_SIZE;
 	int sizes_for_tests[size];
 	
 	for (int i = 1; i < size; ++i)
 		sizes_for_tests[i] = i * mult_factor;
 	for (int i = 1; i < size; ++i)
 	{
-		array_A = ft_create_array(sizes_for_tests[i]);
-		array_B = ft_create_array(sizes_for_tests[i]);
-		ASSERT_EQ( create_threads_and_cmp(array_A, array_B, sizes_for_tests[i], FILL_EQUALLY), NOT_EQUAL);
-		free_all(array_A,array_B, data.info.distribution, NULL);
+		create_all_data_about_arrays(&arrays_info, TEST_MODE, MULTI_THREADS, sizes_for_tests[i], EQUAL);
+		fill_arrays_via_treads(arrays_info);
+		ASSERT_EQ( compare_arrays_via_threads(arrays_info), NOT_EQUAL);
+		free_all(&arrays_info, MULTI_THREADS);
 	}
 	for (int i = 1; i < size; ++i)
 	{
-		array_A = ft_create_array(sizes_for_tests[i]);
-		array_B = ft_create_array(sizes_for_tests[i]);
-		data.info.test_mode = i;// меняем один из элементов  второго заведомо верного массивана любое число, функция сравнения должна вернуть 0 во всех случаях
-		ASSERT_EQ( create_threads_and_cmp(array_A, array_B, sizes_for_tests[i], FILL_REVERSE), NOT_EQUAL);
-		free_all(array_A,array_B, data.info.distribution, NULL);
+		create_all_data_about_arrays(&arrays_info, TEST_MODE, MULTI_THREADS, sizes_for_tests[i], NOT_EQUAL);
+		fill_arrays_via_treads(arrays_info);//создаем изначально правильные массивы
+		arrays_info->info.arr_B[i] = -666;//но меняем один из элементов на любое число, функция сравнения должна вернуть 0 во всех случаях
+		ASSERT_EQ( compare_arrays_via_threads(arrays_info), NOT_EQUAL);
+		free_all(&arrays_info, MULTI_THREADS);
 	}
 }
 
@@ -87,5 +81,4 @@ TEST(STATIC, stress_tests) {
 TEST(DYNAMIC, stress_tests) {
 	
 	check_dynamic(STRESS_TEST_MULT);
-	free_all(NULL, NULL, NULL, &data.mutex);
 }

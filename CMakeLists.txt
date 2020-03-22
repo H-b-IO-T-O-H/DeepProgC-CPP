@@ -5,19 +5,23 @@ set(CMAKE_C_STANDARD 99)
 SET(SRC_FILES_STATIC
         utils/free_func.c
         utils/print_array.c
-        utils/create_array.c
+        utils/create_threads.c
         utils/request_user_data.c
+        utils/create_data_struct.c
+        utils/create_and_fill_array.c
         For_static_library/compare_arrays.c
         )
 
 SET(SRC_FILES_DYNAMIC
         utils/free_func.c
         utils/print_array.c
-        utils/create_array.c
+        utils/create_threads.c
         utils/request_user_data.c
+        utils/create_data_struct.c
+        utils/create_and_fill_array.c
+
         For_dynamic_library/cmp_arrays.c
         For_dynamic_library/fill_arrays.c
-        For_dynamic_library/create_threads.c
         For_dynamic_library/multi_thread_funcs.c)
 
 SET(SRC_FILES_TESTS

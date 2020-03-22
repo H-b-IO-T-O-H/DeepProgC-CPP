@@ -1,17 +1,16 @@
 #include "../includes/arrays.h"
 
-extern t_data data;
-
-int compare_arrays_via_threads(const int *array_A, const int *array_B, pthread_t *trds, int opt_trds_cnt)
+int compare_arrays_via_threads(t_data *arrays_info)
 {
-	data.info.exit_flag = EQUAL;
-	for (int i = 0 ; i < opt_trds_cnt; ++i)
+	arrays_info->info.exit_flag = EQUAL;
+	for (int i = 0 ; i < arrays_info->info.opt_trds_cnt; ++i)
 	{
-		pthread_mutex_lock(&data.mutex);
-		data.info.pos = i;
-		pthread_create(&trds[i], NULL, cmp_arrs, NULL);
+		pthread_mutex_lock(&arrays_info->mutex);
+		arrays_info->info.pos = i;
+		pthread_create(&arrays_info->info.trds_arr[i], NULL, cmp_arrs, (void *)&arrays_info->info);
+		pthread_mutex_unlock(&arrays_info->mutex);
 	}
-	for (int i = 0 ; i < opt_trds_cnt; ++i)//ожидаем завершения всех потоков
-		pthread_join(trds[i], NULL);
-	return data.info.exit_flag;
+	for (int i = 0 ; i < arrays_info->info.opt_trds_cnt; ++i)//ожидаем завершения всех потоков
+		pthread_join(arrays_info->info.trds_arr[i], NULL);
+	return arrays_info->info.exit_flag;
 }

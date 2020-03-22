@@ -1,30 +1,21 @@
 /* Многопоточный вариант*/
 #include "../includes/arrays.h"
 
-t_data data = {PTHREAD_MUTEX_INITIALIZER,
-				 NULL, NULL,NULL,
-				 0,0, 0 , 0,
-				 0};
-
 int main(int argc, char **argv) {
 	
-	int	*array_A = NULL;
-	int	*array_B = NULL;
+	t_data *arrays_info;
 	int	fill_flag = 0;
-	int res = 0;
 	int size = 0;
 	
-	data.info.test_mode = USER_MODE;
 	if (request_data(argc, argv, &size, &fill_flag))
 		return 0;
-	array_A = ft_create_array(size);
-	array_B = ft_create_array(size);
-	if (!array_A || !array_B) //не выделилась память под массивы
+	if (create_all_data_about_arrays(&arrays_info, USER_MODE, MULTI_THREADS, size, fill_flag) == ERROR_IN_MEM_ALLOC)
 		return 0;
-	if ((res = create_threads_and_cmp(array_A, array_B, size, fill_flag)) == EQUAL)
+	fill_arrays_via_treads(arrays_info);
+	if (compare_arrays_via_threads(arrays_info) == EQUAL)
 		printf("\033[032mArrays are equal.\033[039m\n");
-	else if (res == NOT_EQUAL)
+	else
 		printf("\033[031mArrays are not equal.\033[039m\n");
-	free_all(array_A, array_B, data.info.distribution, &data.mutex);
+	free_all(&arrays_info, MULTI_THREADS);
 	return 0;
 }

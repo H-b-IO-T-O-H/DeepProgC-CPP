@@ -1,13 +1,17 @@
 #include "../includes/arrays.h"
 
-void free_all(int *array_A, int *array_B, int *distribution, pthread_mutex_t *mutex)
+void free_all(t_data **arrays_info, int type)
 {
-	if (array_A)
-		free(array_A);
-	if (array_B)
-		free(array_B);
-	if (distribution)
-		free(distribution);
-	if (mutex)
-		pthread_mutex_destroy(mutex);
+	if ((*arrays_info)->info.arr_A)
+		free((*arrays_info)->info.arr_A);
+	if ((*arrays_info)->info.arr_B)
+		free((*arrays_info)->info.arr_B);
+	if (type == MULTI_THREADS) {
+		if ((*arrays_info)->info.distribution)
+			free((*arrays_info)->info.distribution);
+		if ((*arrays_info)->info.trds_arr)
+			free((*arrays_info)->info.trds_arr);
+		pthread_mutex_destroy(&(*arrays_info)->mutex);
+	}
+	free(*arrays_info);
 }
