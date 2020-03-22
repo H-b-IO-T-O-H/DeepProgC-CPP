@@ -27,10 +27,10 @@ typedef struct	s_info {
 	int *arr_B;
 	int size;
 	int pos;
-	short fill_flag;
-	short exit_flag;
-	short opt_trds_cnt;
-	short test_mode;
+	int fill_flag;
+	int exit_flag;
+	int opt_trds_cnt;
+	int test_mode;
 }		t_info;
 
 typedef struct	s_data {
@@ -53,5 +53,6 @@ int	 *ft_create_array(int size);
 void ft_print_array(const int *arr, const int size);
 void free_all(t_data **arrays_info, int type);
 int  request_data(int argc, char **argv, int *size, int *flag_fill);
-int  create_all_data_about_arrays(t_data **arrays_info, const int mode, const int type, int size, int fill_flag);
+int create_all_data_about_arrays(t_data **arrays_info, const int mode,
+								const int type, const int size, const int fill_flag);
 #endif //DZ_2_LISTS_H

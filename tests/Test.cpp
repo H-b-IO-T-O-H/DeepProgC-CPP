@@ -72,11 +72,11 @@ TEST(DYNAMIC, unit_tests) {
 	
 	check_dynamic(UNIT_TEST_MULT);
 }
-
+/*
 TEST(STATIC, stress_tests) {
 	
 	check_static(STRESS_TEST_MULT);
-}
+}*/
 
 TEST(DYNAMIC, stress_tests) {
 	

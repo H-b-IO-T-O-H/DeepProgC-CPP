@@ -8,7 +8,6 @@
 int main(int argc, char **argv) {
 	
 	t_data *arrays_info;
-	t_data test;
 	int	fill_flag = 0;
 	int size = 0;
 	

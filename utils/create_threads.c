@@ -4,7 +4,7 @@ int create_range_for_each_thread(int **distr_array, t_data *arrays_info)
 {
 	int *distribution_array;
 	
-	arrays_info->info.opt_trds_cnt = get_nprocs() * 2 - 1; // -1 так как один поток на main по дефолту
+	arrays_info->info.opt_trds_cnt = get_nprocs() * 2;
 	int step = arrays_info->info.size / arrays_info->info.opt_trds_cnt;// разбиваем весь диапазон на поддиапазоны
 	distribution_array = (int *)malloc(sizeof(int) * arrays_info->info.opt_trds_cnt);
 	if (!distribution_array)

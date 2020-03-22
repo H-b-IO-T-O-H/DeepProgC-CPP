@@ -1,6 +1,6 @@
 #include "arrays.h"
 
-int create_all_data_about_arrays(t_data **arrays_info, const int mode, const int type, int size, int fill_flag)
+int create_all_data_about_arrays(t_data **arrays_info, const int mode, const int type, const int size, const int fill_flag)
 {
 	*arrays_info = (t_data *)malloc(sizeof(t_data));
 	if (!*arrays_info)
