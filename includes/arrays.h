@@ -54,5 +54,5 @@ void ft_print_array(const int *arr, const int size);
 void free_all(t_data **arrays_info, int type);
 int  request_data(int argc, char **argv, int *size, int *flag_fill);
 int  create_all_data_about_arrays(t_data **arrays_info, const int mode,
-								const int type, const int size, const int fill_flag);
+				  const int type, const int size, const int fill_flag);
 #endif //DZ_2_LISTS_H
