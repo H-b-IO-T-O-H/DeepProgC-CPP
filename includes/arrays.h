@@ -43,7 +43,7 @@ int  compare_arrays(t_data* arrays_info);
 void ft_fill_array(int *arr, int size, int fill_flag);
 //multi_thread_app
 int  compare_arrays_via_threads(t_data* arrays_info);
-int  create_range_for_each_thread(int **distr_array, t_data *arrays_info);
+int  create_range_for_each_thread(t_data *arrays_info);
 void *cmp_arrs(void *arg);
 void *single_thrd_fill(void *arg);
 void fill_arrays_via_treads(t_data *arrays_info);

@@ -1,6 +1,6 @@
 #include "arrays.h"
 
-int create_range_for_each_thread(int **distr_array, t_data *arrays_info)
+int create_range_for_each_thread(t_data *arrays_info)
 {
 	int *distribution_array;
 	
@@ -24,6 +24,6 @@ int create_range_for_each_thread(int **distr_array, t_data *arrays_info)
 		j += step;
 		distribution_array[i] = j;
 	}
-	*distr_array = distribution_array;
+	arrays_info->info.distribution = distribution_array;
 	return arrays_info->info.opt_trds_cnt;
 }

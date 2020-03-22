@@ -23,10 +23,10 @@ int create_all_data_about_arrays(t_data **arrays_info, const int mode, const int
 	if (type == MULTI_THREADS)
 	{
 		pthread_mutex_init(&(*arrays_info)->mutex, NULL);
-		if (((*arrays_info)->info.opt_trds_cnt  = create_range_for_each_thread(&(*arrays_info)->info.distribution, *arrays_info)) == ERROR_IN_MEM_ALLOC)//создали распределенные участки для каждого потока, которые указаны в виде индексов в массиве distribution
+		if (((*arrays_info)->info.opt_trds_cnt  = create_range_for_each_thread(*arrays_info)) == ERROR_IN_MEM_ALLOC)//создали распределенные участки для каждого потока, которые указаны в виде индексов в массиве distribution
 			return ERROR_IN_MEM_ALLOC;
 		if (!((*arrays_info)->info.trds_arr = (pthread_t *)malloc(sizeof(pthread_t) * (*arrays_info)->info.opt_trds_cnt))) //создали массив потоков
 			return  ERROR_IN_MEM_ALLOC;
 	}
-	return 1;
+	return 0;
 }
