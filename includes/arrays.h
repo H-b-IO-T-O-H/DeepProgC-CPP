@@ -42,14 +42,14 @@ typedef struct	s_data {
 int  compare_arrays(t_data* arrays_info);
 void ft_fill_array(int *arr, int size, int fill_flag);
 //multi_thread_app
-int	 compare_arrays_via_threads(t_data* arrays_info);
+int  compare_arrays_via_threads(t_data* arrays_info);
 int  create_range_for_each_thread(int **distr_array, t_data *arrays_info);
 void *cmp_arrs(void *arg);
 void *single_thrd_fill(void *arg);
 void fill_arrays_via_treads(t_data *arrays_info);
 //utils
 int  create_threads(t_data *data);
-int	 *ft_create_array(int size);
+int  *ft_create_array(int size);
 void ft_print_array(const int *arr, const int size);
 void free_all(t_data **arrays_info, int type);
 int  request_data(int argc, char **argv, int *size, int *flag_fill);
