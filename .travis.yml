@@ -43,3 +43,4 @@ script:
   - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../includes/ ../utils/
   - valgrind --tool=memcheck --leak-check=full ./multi_thread 1000 1000 -1
   - valgrind --tool=memcheck --leak-check=full ./single_thread 1000 1000 -1
+  - ./gtest_test
