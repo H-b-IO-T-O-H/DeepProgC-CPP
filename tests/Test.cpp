@@ -21,17 +21,17 @@ void check_static(int mult_factor)
 	for (int i = 1; i < size; ++i)
 	{
 		create_all_data_about_arrays(&arrays_info,  TEST_MODE,  SINGLE_TREAD, sizes_for_tests[i], NOT_EQUAL);
-		ft_fill_array(arrays_info->info.arr_A, sizes_for_tests[i], EQUAL);//создаем изначально правильные массивы
-		ft_fill_array(arrays_info->info.arr_B, sizes_for_tests[i], -EQUAL);
+		ft_fill_array(arrays_info->arr_A, sizes_for_tests[i], EQUAL);//создаем изначально правильные массивы
+		ft_fill_array(arrays_info->arr_B, sizes_for_tests[i], -EQUAL);
 		ASSERT_EQ( compare_arrays(arrays_info), EQUAL);
 		free_all(&arrays_info, SINGLE_TREAD);
 	}
 	for (int i = 1; i < size; ++i)
 	{
 		create_all_data_about_arrays(&arrays_info,  TEST_MODE,  SINGLE_TREAD, sizes_for_tests[i], NOT_EQUAL);
-		ft_fill_array(arrays_info->info.arr_A, sizes_for_tests[i], EQUAL);//создаем изначально правильные массивы
-		ft_fill_array(arrays_info->info.arr_B, sizes_for_tests[i], -EQUAL);//но меняем один из элементов на любое число, функция сравнения должна вернуть 0 во всех случаях
-		arrays_info->info.arr_B[i] = -666;//но меняем один из элементов на любое число, функция сравнения должна вернуть 0 во всех случаях
+		ft_fill_array(arrays_info->arr_A, sizes_for_tests[i], EQUAL);//создаем изначально правильные массивы
+		ft_fill_array(arrays_info->arr_B, sizes_for_tests[i], -EQUAL);//но меняем один из элементов на любое число, функция сравнения должна вернуть 0 во всех случаях
+		arrays_info->arr_B[i] = -666;//но меняем один из элементов на любое число, функция сравнения должна вернуть 0 во всех случаях
 		ASSERT_EQ( compare_arrays(arrays_info), NOT_EQUAL);
 		free_all(&arrays_info, SINGLE_TREAD);
 	}
@@ -57,7 +57,7 @@ void check_dynamic(int mult_factor)
 	{
 		create_all_data_about_arrays(&arrays_info, TEST_MODE, MULTI_THREADS, sizes_for_tests[i], NOT_EQUAL);
 		fill_arrays_via_treads(arrays_info);//создаем изначально правильные массивы
-		arrays_info->info.arr_B[i] = -666;//но меняем один из элементов на любое число, функция сравнения должна вернуть 0 во всех случаях
+		arrays_info->arr_B[i] = -666;//но меняем один из элементов на любое число, функция сравнения должна вернуть 0 во всех случаях
 		ASSERT_EQ( compare_arrays_via_threads(arrays_info), NOT_EQUAL);
 		free_all(&arrays_info, MULTI_THREADS);
 	}

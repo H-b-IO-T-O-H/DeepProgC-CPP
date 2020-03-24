@@ -19,23 +19,29 @@
 
 #define USER_ERROR 1
 #define ERROR_IN_MEM_ALLOC -1
+#define ERROR_THREADS_CREATE -1
+#define ERROR_THREADS_JOIN -2
 
-typedef struct	s_info {
-	pthread_t *trds_arr;
-	int *distribution;
+typedef struct s_for_thrd {
 	int *arr_A;
 	int *arr_B;
+	int *exit_flag;
+	int start;
+	int end;
 	int size;
-	int pos;
 	int fill_flag;
-	int exit_flag;
-	int opt_trds_cnt;
-	int test_mode;
-}		t_info;
+}		t_for_thrd;
 
 typedef struct	s_data {
-	pthread_mutex_t	mutex;
-	t_info		info;
+	pthread_t *trds_arr;
+	t_for_thrd *trd_info;
+	int *arr_A;
+	int *arr_B;
+	int opt_trds_cnt;
+	int size;
+	int fill_flag;
+	int exit_flag;
+	int test_mode;
 }		t_data;
 
 //single_thread_app
@@ -43,12 +49,12 @@ int  compare_arrays(t_data* arrays_info);
 void ft_fill_array(int *arr, int size, int fill_flag);
 //multi_thread_app
 int  compare_arrays_via_threads(t_data* arrays_info);
+int  fill_arrays_via_treads(t_data *arrays_info);
 int  create_range_for_each_thread(t_data *arrays_info);
 void *cmp_arrs(void *arg);
 void *single_thrd_fill(void *arg);
-void fill_arrays_via_treads(t_data *arrays_info);
 //utils
-int  create_threads(t_data *data);
+
 int  *ft_create_array(int size);
 void ft_print_array(const int *arr, const int size);
 void free_all(t_data **arrays_info, int type);

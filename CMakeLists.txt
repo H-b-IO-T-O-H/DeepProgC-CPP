@@ -5,7 +5,7 @@ set(CMAKE_C_STANDARD 99)
 SET(SRC_FILES_STATIC
         utils/free_func.c
         utils/print_array.c
-        utils/create_threads.c
+        utils/create_range_for_thrds.c
         utils/request_user_data.c
         utils/create_data_struct.c
         utils/create_and_fill_array.c
@@ -15,7 +15,7 @@ SET(SRC_FILES_STATIC
 SET(SRC_FILES_DYNAMIC
         utils/free_func.c
         utils/print_array.c
-        utils/create_threads.c
+        utils/create_range_for_thrds.c
         utils/request_user_data.c
         utils/create_data_struct.c
         utils/create_and_fill_array.c
